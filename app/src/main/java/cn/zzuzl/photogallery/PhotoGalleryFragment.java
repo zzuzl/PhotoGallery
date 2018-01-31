@@ -1,5 +1,6 @@
 package cn.zzuzl.photogallery;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,15 +54,16 @@ public class PhotoGalleryFragment extends Fragment {
      * holder
      */
     private class PhotoHolder extends RecyclerView.ViewHolder {
-        private TextView mTextView;
+        private ImageView mImageView;
 
         public PhotoHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView;
+            mImageView = itemView.findViewById(R.id.item_image_view);
         }
 
         public void bind(GalleryItem item) {
-            mTextView.setText(item.getCaption());
+            Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+            mImageView.setImageDrawable(drawable);
         }
     }
 
@@ -76,8 +79,9 @@ public class PhotoGalleryFragment extends Fragment {
 
         @Override
         public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView textView = new TextView(getActivity());
-            return new PhotoHolder(textView);
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            View view = inflater.inflate(R.layout.list_item_gallery, parent, false);
+            return new PhotoHolder(view);
         }
 
         @Override
